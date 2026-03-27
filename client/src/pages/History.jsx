@@ -187,119 +187,121 @@ function History() {
       </div>
 
       {/* Table */}
-      <table className="table table-bordered text-center table-dark">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Customer</th>
-            <th>Vehicle</th>
-            <th>Mobile</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Payment</th>
-            <th>Details</th>
-            <th>❌</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((item, i) => (
-            <tr key={i}>
-              <td>{i + 1}</td>
-              <td>{item.customer}</td>
-              <td>{item.vehicle}</td>
-              <td>{item.mobile}</td>
-              <td>{item.date}</td>
-              <td>₹{item.total}</td>
-
-              <td>
-                <select
-                  value={item.status || "Pending"}
-                  onChange={(e) => {
-                    const id = item._id || item.id;
-                    const newStatus = e.target.value;
-                    const prev = [...historyData];
-                    const newData = historyData.map((h) =>
-                      (h._id || h.id) === id ? { ...h, status: newStatus } : h
-                    );
-                    setHistoryData(newData);
-
-                    // Persist change
-                    const invoice = historyData.find((h) => (h._id || h.id) === id);
-                    if (!invoice) return;
-                    const payload = { ...invoice, status: newStatus, paymentMode: invoice.paymentMode || (newStatus === 'Paid' ? 'Cash' : invoice.paymentMode) };
-                    api.put(`/invoices/${id}`, payload)
-                      .then((res) => {
-                        // Replace with server response to stay authoritative
-                        const updated = prev.map((h) => (h._id || h.id) === id ? res.data : h);
-                        setHistoryData(updated);
-                      })
-                      .catch(() => {
-                        setHistoryData(prev);
-                        toast.error('Failed to update status');
-                      });
-                  }}
-                >
-                  <option>Pending</option>
-                  <option>Paid</option>
-                </select>
-
-                {item.status === "Paid" && (
-                  <select
-                    className="mt-2"
-                    value={item.paymentMode || "Cash"}
-                      onChange={(e) => {
-                        const id = item._id || item.id;
-                        const newMode = e.target.value;
-                        const prev = [...historyData];
-                        const newData = historyData.map((h) =>
-                          (h._id || h.id) === id ? { ...h, paymentMode: newMode } : h
-                        );
-                        setHistoryData(newData);
-
-                        const invoice = historyData.find((h) => (h._id || h.id) === id);
-                        if (!invoice) return;
-                        const payload = { ...invoice, paymentMode: newMode };
-                        api.put(`/invoices/${id}`, payload)
-                          .then((res) => {
-                            const updated = prev.map((h) => (h._id || h.id) === id ? res.data : h);
-                            setHistoryData(updated);
-                          })
-                          .catch(() => {
-                            setHistoryData(prev);
-                            toast.error('Failed to update payment mode');
-                          });
-                      }}
-                  >
-                    <option>Cash</option>
-                    <option>Online</option>
-                  </select>
-                )}
-              </td>
-
-              <td>
-                <button
-                  className="btn btn-info btn-sm"
-                  onClick={() => {
-                    setSelectedInvoice(item);
-                    setShowModal(true);
-                  }}
-                >
-                  View
-                </button>
-              </td>
-
-              <td>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => handleDeleteClick(i)}
-                >
-                  🗑️
-                </button>
-              </td>
+      <div className="table-responsive">
+        <table className="table table-bordered text-center table-dark">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Customer</th>
+              <th>Vehicle</th>
+              <th>Mobile</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Payment</th>
+              <th>Details</th>
+              <th>❌</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredData.map((item, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>{item.customer}</td>
+                <td>{item.vehicle}</td>
+                <td>{item.mobile}</td>
+                <td>{item.date}</td>
+                <td>₹{item.total}</td>
+
+                <td>
+                  <select
+                    value={item.status || "Pending"}
+                    onChange={(e) => {
+                      const id = item._id || item.id;
+                      const newStatus = e.target.value;
+                      const prev = [...historyData];
+                      const newData = historyData.map((h) =>
+                        (h._id || h.id) === id ? { ...h, status: newStatus } : h
+                      );
+                      setHistoryData(newData);
+
+                      // Persist change
+                      const invoice = historyData.find((h) => (h._id || h.id) === id);
+                      if (!invoice) return;
+                      const payload = { ...invoice, status: newStatus, paymentMode: invoice.paymentMode || (newStatus === 'Paid' ? 'Cash' : invoice.paymentMode) };
+                      api.put(`/invoices/${id}`, payload)
+                        .then((res) => {
+                          // Replace with server response to stay authoritative
+                          const updated = prev.map((h) => (h._id || h.id) === id ? res.data : h);
+                          setHistoryData(updated);
+                        })
+                        .catch(() => {
+                          setHistoryData(prev);
+                          toast.error('Failed to update status');
+                        });
+                    }}
+                  >
+                    <option>Pending</option>
+                    <option>Paid</option>
+                  </select>
+
+                  {item.status === "Paid" && (
+                    <select
+                      className="mt-2"
+                      value={item.paymentMode || "Cash"}
+                        onChange={(e) => {
+                          const id = item._id || item.id;
+                          const newMode = e.target.value;
+                          const prev = [...historyData];
+                          const newData = historyData.map((h) =>
+                            (h._id || h.id) === id ? { ...h, paymentMode: newMode } : h
+                          );
+                          setHistoryData(newData);
+
+                          const invoice = historyData.find((h) => (h._id || h.id) === id);
+                          if (!invoice) return;
+                          const payload = { ...invoice, paymentMode: newMode };
+                          api.put(`/invoices/${id}`, payload)
+                            .then((res) => {
+                              const updated = prev.map((h) => (h._id || h.id) === id ? res.data : h);
+                              setHistoryData(updated);
+                            })
+                            .catch(() => {
+                              setHistoryData(prev);
+                              toast.error('Failed to update payment mode');
+                            });
+                        }}
+                    >
+                      <option>Cash</option>
+                      <option>Online</option>
+                    </select>
+                  )}
+                </td>
+
+                <td>
+                  <button
+                    className="btn btn-info btn-sm"
+                    onClick={() => {
+                      setSelectedInvoice(item);
+                      setShowModal(true);
+                    }}
+                  >
+                    View
+                  </button>
+                </td>
+
+                <td>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDeleteClick(i)}
+                  >
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Undo */}
       {recentlyDeleted && (
