@@ -160,67 +160,69 @@ function Inventory() {
       </form>
 
       {/* Table */}
-      <table className="table table-dark mt-4 text-center">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Stock</th>
-            <th>Price</th>
-            <th>❌</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {products.map((p, i) => (
-            <tr key={p._id || i}>
-              <td>{i + 1}</td>
-              <td>{p.name}</td>
-
-              {/* Editable Stock */}
-              <td>
-                <input
-                  type="number"
-                  value={p.stock}
-                  className="form-control text-center"
-                  style={{ width: "80px", margin: "auto" }}
-                  onChange={(e) => updateStock(i, e.target.value)}
-                />
-              </td>
-
-              {/* Editable Price */}
-              <td>
-                <input
-                  type="number"
-                  value={p.price}
-                  className="form-control text-center"
-                  style={{ width: "100px", margin: "auto" }}
-                  onChange={(e) => updatePrice(i, e.target.value)}
-                />
-              </td>
-
-              {/* Delete */}
-              <td>
-                <div className="d-flex justify-content-center gap-2">
-                  <button
-                    className="btn btn-secondary btn-sm"
-                    onClick={() => editProduct(i)}
-                  >
-                    ✏️
-                  </button>
-
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => deleteProduct(i)}
-                  >
-                    🗑️
-                  </button>
-                </div>
-              </td>
+      <div className="table-responsive">
+        <table className="table table-dark mt-4 text-center">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Stock</th>
+              <th>Price</th>
+              <th>❌</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {products.map((p, i) => (
+              <tr key={p._id || i}>
+                <td>{i + 1}</td>
+                <td>{p.name}</td>
+
+                {/* Editable Stock */}
+                <td>
+                  <input
+                    type="number"
+                    value={p.stock}
+                    className="form-control text-center"
+                    style={{ width: "80px", margin: "auto" }}
+                    onChange={(e) => updateStock(i, e.target.value)}
+                  />
+                </td>
+
+                {/* Editable Price */}
+                <td>
+                  <input
+                    type="number"
+                    value={p.price}
+                    className="form-control text-center"
+                    style={{ width: "100px", margin: "auto" }}
+                    onChange={(e) => updatePrice(i, e.target.value)}
+                  />
+                </td>
+
+                {/* Delete */}
+                <td>
+                  <div className="d-flex justify-content-center gap-2">
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => editProduct(i)}
+                    >
+                      ✏️
+                    </button>
+
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => deleteProduct(i)}
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <ConfirmModal
         open={showConfirm}
