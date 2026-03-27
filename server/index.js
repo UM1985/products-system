@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 const allowedOrigins = [
-	
+	'https://products-system-ruddy.vercel.app'
 ];
 
 app.use(
