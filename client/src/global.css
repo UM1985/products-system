@@ -1,0 +1,105 @@
+:root{
+	--bg: #000000;
+	--surface: #0b0b0b;
+	--card: #0f0f0f;
+	--text: #e6e6e6;
+	--muted: #9a9a9a;
+	--accent: #1e90ff;
+	--border: #222222;
+}
+
+*{box-sizing:border-box}
+
+html,body,#root{
+	height:100%;
+}
+
+body{
+	margin:0;
+	background:var(--bg);
+	color:var(--text);
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+}
+
+.container{
+	color:var(--text);
+}
+
+.navbar{
+	background:var(--surface) !important;
+	border-bottom:1px solid var(--border);
+}
+
+.card{
+	background:var(--card);
+	color:var(--text);
+	border:1px solid var(--border);
+}
+
+table{
+	color:var(--text);
+}
+
+.form-control, input, textarea, select{
+	background:transparent;
+	color:#ffffff;
+	border:1px solid var(--border);
+}
+
+.form-control::placeholder, input::placeholder, textarea::placeholder, select::placeholder{
+	color:var(--muted);
+	opacity:1;
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill {
+	-webkit-text-fill-color: #ffffff !important;
+}
+
+.btn-primary{
+	background:var(--accent) !important;
+	border-color:var(--accent) !important;
+	color:#fff !important;
+}
+
+a{color:var(--accent)}
+
+/* Toastify tweaks for dark */
+.Toastify__toast--default{background:var(--card);color:var(--text)}
+
+/* Invoice preview (butter-paper look) */
+.invoice-preview{
+	background: linear-gradient(180deg, #fbf6e3 0%, #fcf8ea 100%);
+	border: 1px solid rgba(0,0,0,0.06);
+	box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+	padding: 18px;
+	border-radius: 8px;
+	color:#222;
+}
+
+.invoice-header{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.invoice-logo{height:64px;width:64px;object-fit:cover;border-radius:6px}
+.invoice-company{font-weight:700;font-size:18px}
+.invoice-meta{margin-left:auto;text-align:right;font-size:12px}
+.invoice-table{width:100%;border-collapse:collapse;margin-top:8px}
+.invoice-table th,.invoice-table td{padding:6px 8px;border-bottom:1px solid rgba(0,0,0,0.06)}
+.invoice-total{font-size:15px;font-weight:700;text-align:right;margin-top:8px}
+
+/* Dark variant for invoice preview to match app theme */
+.invoice-preview.invoice-preview-dark{
+	background: linear-gradient(180deg, #141414 0%, #1b1b1b 100%);
+	border: 1px solid rgba(255,255,255,0.04);
+	box-shadow: none;
+	color: var(--text);
+}
+.invoice-preview.invoice-preview-dark .invoice-company{color:var(--text)}
+.invoice-preview.invoice-preview-dark .invoice-meta{color:var(--muted)}
+.invoice-preview.invoice-preview-dark .invoice-table th,
+.invoice-preview.invoice-preview-dark .invoice-table td{
+	border-bottom:1px solid rgba(255,255,255,0.03);
+	color:var(--text);
+}
+.invoice-preview.invoice-preview-dark .invoice-total{color:var(--text)}
+
+
+
